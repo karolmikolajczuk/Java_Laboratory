@@ -7,7 +7,7 @@ public class Human {
     private Phone number;
     private Animal pet;
     private Car car;
-
+    private Double salary;
     /**
      * Default constructor.
      */
@@ -157,5 +157,43 @@ public class Human {
      */
     public void setCar(Car car) {
         this.car = car;
+    }
+
+    /**
+     * Current human's salary
+     * @return present salary
+     */
+    public Double getSalary() {
+        return salary;
+    }
+
+    /**
+     * Setting new salary - hopefully always increasingly.
+     * @param salary new salary for human.
+     */
+    public void setSalary(Double salary) throws IllegalArgumentException {
+        if (salary < 0)
+            throw new IllegalArgumentException("Salary can't be smaller than 0");
+
+        // set new salary first, cause we can't send this data everywhere and
+        // don't change it.
+        // imagine the situation when you send this everywhere and system shutdown's
+        // accidentally and you don't have changed salary yet but everyone thinks it happened.
+        this.salary = salary;
+        System.out.println("New salary was send to accountant system.");
+        System.out.println("You need to go to HR department to get an annex to the contract.");
+        System.out.println("Basically, government knows what's your new salary, so you don't have to hide it.");
+    }
+
+    /**
+     * Giving a raise to the human, no new salary,
+     * but the extension to the current salary.
+     * @param raise the raise
+     */
+    public void raiseSalary(Double raise) throws IllegalArgumentException {
+        if (raise < 0)
+            throw new IllegalArgumentException("Raise can't be smaller than 0");
+
+        this.salary = this.salary + raise;
     }
 }

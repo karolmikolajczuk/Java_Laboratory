@@ -43,5 +43,11 @@ public class Main {
         System.out.println("1"); // flag for checking if each exception was caught.
 
         System.out.println(John.getCar().getProducer() + " " + John.getCar().getModel());
+
+        John.setSalary(3000.0);
+
+        System.out.println(John.getSalary());
+        John.raiseSalary(500.0);
+        System.out.println(John.getSalary());
     }
 }
