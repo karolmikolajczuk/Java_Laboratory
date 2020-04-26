@@ -1,11 +1,14 @@
 package com.karolmikolajczuk;
 
+import java.math.BigDecimal;
+
 public class Car {
 
     private String model;
     private String producer;
     private Double engine_size;
     private ENGINE engine;
+    private BigDecimal value;
 
     /**
      * Constructor with all parameters
@@ -13,12 +16,14 @@ public class Car {
      * @param producer Car's producer
      * @param engine_size Car's engine size
      * @param engine Car's engine type
+     * @param value Car's value
      */
-    public Car(String model, String producer, Double engine_size, ENGINE engine) {
+    public Car(String model, String producer, Double engine_size, ENGINE engine, BigDecimal value) {
         this.model = model;
         this.producer = producer;
         this.engine_size = engine_size;
         this.engine = engine;
+        this.value = value;
     }
 
     /**
@@ -83,5 +88,21 @@ public class Car {
      */
     public void setEngine(ENGINE engine) {
         this.engine = engine;
+    }
+
+    /**
+     * Get a car's value
+     * @return current value
+     */
+    public BigDecimal getValue() {
+        return value;
+    }
+
+    /**
+     * Set new value of a car - probably always lower..
+     * @param value new car's value
+     */
+    public void setValue(BigDecimal value) {
+        this.value = value;
     }
 }

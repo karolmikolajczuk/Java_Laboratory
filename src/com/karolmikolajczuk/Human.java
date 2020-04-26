@@ -8,6 +8,7 @@ public class Human {
     private Animal pet;
     private Car car;
     private Double salary;
+
     /**
      * Default constructor.
      */
@@ -144,7 +145,7 @@ public class Human {
     }
 
     /**
-     * Getting current car that human has.
+     * Getting current car object that human owns.
      * @return human's car object.
      */
     public Car getCar() {
@@ -156,6 +157,19 @@ public class Human {
      * @param car new car.
      */
     public void setCar(Car car) {
+        if (this.salary.isNaN())
+            throw new IllegalStateException("Dude, you have no job.");
+
+        if (this.salary < (car.getValue().doubleValue()/12)) {
+            System.out.println("Go study, get new job(better payment) or go for a raise(big raise).");
+            return;
+        }
+        if (this.salary > car.getValue().doubleValue()) {
+            System.out.println("Congratulations, you bought " + car.getModel());
+        } else if (this.salary > (car.getValue().doubleValue()/12)) {
+            System.out.println("Woah, big fella. You got " + car.getModel() + ", but you have bought it on credit.");
+        }
+
         this.car = car;
     }
 
@@ -164,7 +178,9 @@ public class Human {
      * @return present salary
      */
     public Double getSalary() {
-        return salary;
+        if (!this.salary.isNaN()) return salary;
+
+        return 0.0;
     }
 
     /**
@@ -190,9 +206,11 @@ public class Human {
      * but the extension to the current salary.
      * @param raise the raise
      */
-    public void raiseSalary(Double raise) throws IllegalArgumentException {
+    public void raiseSalary(Double raise) throws IllegalArgumentException, IllegalAccessException {
         if (raise < 0)
             throw new IllegalArgumentException("Raise can't be smaller than 0");
+        if (!(this.salary > 0))
+            throw new IllegalAccessException("You can't get raise if you have no job..");
 
         this.salary = this.salary + raise;
     }

@@ -1,6 +1,7 @@
 package com.karolmikolajczuk;
 
 import java.io.File;
+import java.math.BigDecimal;
 
 public class Main {
 
@@ -37,17 +38,20 @@ public class Main {
             System.out.println(e.getMessage());
         }
 
-        Car porsche = new Car("911", "Porsche", 5.0, ENGINE.BENZIN);
-        John.setCar(porsche);
-
-        System.out.println("1"); // flag for checking if each exception was caught.
-
-        System.out.println(John.getCar().getProducer() + " " + John.getCar().getModel());
-
         John.setSalary(3000.0);
 
         System.out.println(John.getSalary());
-        John.raiseSalary(500.0);
+        try {
+            John.raiseSalary(500.0);
+        } catch (IllegalAccessException | IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
         System.out.println(John.getSalary());
+
+        Car porsche = new Car("911", "Porsche", 5.0, ENGINE.BENZIN, new BigDecimal("1000.0"));
+        John.setCar(porsche);
+        System.out.println("1"); // flag for checking if each exception was caught.
+
+
     }
 }
