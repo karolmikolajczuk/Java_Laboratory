@@ -1,5 +1,8 @@
 package com.karolmikolajczuk;
 
+import devices.Car;
+import devices.Phone;
+
 public class Human {
     private String name;
     private String surname;
@@ -13,7 +16,13 @@ public class Human {
      * Default constructor.
      */
     public Human() {
-
+        this.name = "";
+        this.surname = "";
+        this.age = 0.0;
+        this.number = new Phone();
+        this.pet = new Animal();
+        this.car = new Car();
+        this.salary = 0.0;
     }
 
     /**
@@ -28,6 +37,9 @@ public class Human {
         this.surname = surname;
         this.age = age;
         this.number = number;
+        this.pet = new Animal();
+        this.car = new Car();
+        this.salary = 0.0;
     }
 
     /**
@@ -44,6 +56,8 @@ public class Human {
         this.age = age;
         this.number = number;
         this.pet = pet;
+        this.car = new Car();
+        this.salary = 0.0;
     }
 
     /**
@@ -62,6 +76,7 @@ public class Human {
         this.number = number;
         this.pet = pet;
         this.car = car;
+        this.salary = 0.0;
     }
 
     /**
@@ -213,5 +228,24 @@ public class Human {
             throw new IllegalAccessException("You can't get raise if you have no job..");
 
         this.salary = this.salary + raise;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Human human = (Human) obj;
+        return this.name.equals(human.name) &&
+                this.surname.equals(human.surname) &&
+                this.age.doubleValue() == human.age.doubleValue() &&
+                this.salary.doubleValue() == human.salary.doubleValue() &&
+                this.number.equals(human.number) &&
+                this.pet.equals(human.pet) &&
+                this.car.equals(human.car);
+    }
+
+    @Override
+    public String toString() {
+        return this.name + " " + this.surname + " is " +
+                this.age + " old and has a pet: " + this.pet +
+                " and his phone number is: " + this.number;
     }
 }

@@ -15,6 +15,14 @@ public class Animal {
     private BigDecimal weight;
     private File picture;
 
+    public Animal() {
+        this.species = SPECIES.NONE;
+        this.name = "";
+        this.isAlive = false;
+        this.weight = new BigDecimal("0.0");
+        this.picture = null;
+    }
+
     /**
      * Constructor for an Animal class.
      * @param name current name of an animal
@@ -217,5 +225,21 @@ public class Animal {
         }
 
         throw new IllegalArgumentException("Wrong argument, somehow..");
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Animal animal = (Animal) obj;
+
+        return this.isAlive == animal.isAlive &&
+                this.weight.equals(animal.weight) &&
+                this.species == animal.species &&
+                this.name.equals(animal.name) &&
+                this.picture == animal.picture;
+    }
+
+    @Override
+    public String toString() {
+        return this.name + " weighs: " + this.weight + " and is " + this.species;
     }
 }

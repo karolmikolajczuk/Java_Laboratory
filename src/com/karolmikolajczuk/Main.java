@@ -1,57 +1,41 @@
 package com.karolmikolajczuk;
 
+import devices.Car;
+import devices.Phone;
+
 import java.io.File;
 import java.math.BigDecimal;
 
 public class Main {
 
     public static void main(String[] args) {
-        Human John = new Human("John", "Doe", 20.0,
-                new Phone(123456789, "PLAY"),
-                new Animal("Fifi", SPECIES.DOG, new File("")));
 
-        System.out.println(John.getName());
-        System.out.println(John.getSurname());
-        System.out.println(John.getAge());
-        System.out.println(John.getNumber().getNumber());
+        Car car1 = new Car("911", "Porsche", 4.0, ENGINE.BENZIN, new BigDecimal("10000.00"));
+        Car car2 = new Car("911", "Porsche", 4.0, ENGINE.BENZIN, new BigDecimal("10000.00"));
 
-        System.out.println();
-        System.out.println(John.getPet().getName());
+        System.out.println(car1.equals(car2));
+        System.out.println(car1);
+        System.out.println(car2);
 
-        try {
-            John.getPet().feed();
-        } catch (IllegalStateException e) {
-            System.out.println(e.getMessage());
-        }
-        John.getPet().walk(9.0);
-        System.out.println(John.getPet().getWeight());
-        try {
-            John.getPet().feed();
-        } catch (IllegalStateException e) {
-            System.out.println(e.getMessage());
-        }
-        John.getPet().walk(9.0);
-        System.out.println(John.getPet().getWeight());
-        try {
-            John.getPet().feed();
-        } catch (IllegalStateException e) {
-            System.out.println(e.getMessage());
-        }
+        Phone phone1 = new Phone(12345678, "PLAY", 48);
+        Phone phone2 = new Phone(12345678, "PLAY", 48);
 
-        John.setSalary(3000.0);
+        System.out.println(phone1.equals(phone2));
+        System.out.println(phone1);
+        System.out.println(phone2);
 
-        System.out.println(John.getSalary());
-        try {
-            John.raiseSalary(500.0);
-        } catch (IllegalAccessException | IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.println(John.getSalary());
+        Human human1 = new Human("John", "Doe", 30.0, phone1);
+        Human human2 = new Human("John", "Doe", 30.0, phone1);
 
-        Car porsche = new Car("911", "Porsche", 5.0, ENGINE.BENZIN, new BigDecimal("1000.0"));
-        John.setCar(porsche);
-        System.out.println("1"); // flag for checking if each exception was caught.
+        System.out.println(human1.equals(human2));
+        System.out.println(human1);
+        System.out.println(human2);
 
+        Animal animal1 = new Animal("Doggy", SPECIES.DOG, new File(""));
+        Animal animal2 = new Animal("Doggy", SPECIES.DOG, new File(""));
 
+        System.out.println(animal1.equals(animal2));
+        System.out.println(animal1);
+        System.out.println(animal2);
     }
 }

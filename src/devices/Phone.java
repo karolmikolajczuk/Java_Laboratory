@@ -1,10 +1,16 @@
-package com.karolmikolajczuk;
+package devices;
 
 public class Phone {
 
     private Integer dialling_code;
     private Integer number;
     private String net;
+
+    public Phone() {
+        this.dialling_code = 0;
+        this.number = 0;
+        this.net = "";
+    }
 
     public Phone(Integer number, String net) {
         this.dialling_code = -1;
@@ -40,5 +46,18 @@ public class Phone {
 
     public String getNet() {
         return net;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Phone p = (Phone) obj;
+        return this.number.equals(p.number) &&
+                this.dialling_code.equals(p.dialling_code) &&
+                this.net.equals(p.net);
+    }
+
+    @Override
+    public String toString() {
+        return this.number.toString();
     }
 }
