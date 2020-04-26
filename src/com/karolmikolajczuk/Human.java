@@ -6,6 +6,7 @@ public class Human {
     private Double age;
     private Phone number;
     private Animal pet;
+    private Car car;
 
     /**
      * Default constructor.
@@ -42,6 +43,24 @@ public class Human {
         this.age = age;
         this.number = number;
         this.pet = pet;
+    }
+
+    /**
+     * Constructor of Human with all parameters
+     * @param name name of human
+     * @param surname last name of human
+     * @param age current age of human
+     * @param number phone number of human
+     * @param pet animal object that represents pet
+     * @param car car object that represents car
+     */
+    public Human(String name, String surname, Double age, Phone number, Animal pet, Car car) {
+        this.name = name;
+        this.surname = surname;
+        this.age = age;
+        this.number = number;
+        this.pet = pet;
+        this.car = car;
     }
 
     /**
@@ -122,5 +141,21 @@ public class Human {
      */
     public void setPet(Animal pet) {
         this.pet = pet;
+    }
+
+    /**
+     * Getting current car that human has.
+     * @return human's car object.
+     */
+    public Car getCar() {
+        return car;
+    }
+
+    /**
+     * Setting new car for human.
+     * @param car new car.
+     */
+    public void setCar(Car car) {
+        this.car = car;
     }
 }

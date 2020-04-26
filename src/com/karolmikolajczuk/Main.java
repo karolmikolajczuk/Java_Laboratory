@@ -37,6 +37,11 @@ public class Main {
             System.out.println(e.getMessage());
         }
 
+        Car porsche = new Car("911", "Porsche", 5.0, ENGINE.BENZIN);
+        John.setCar(porsche);
+
         System.out.println("1"); // flag for checking if each exception was caught.
+
+        System.out.println(John.getCar().getProducer() + " " + John.getCar().getModel());
     }
 }
