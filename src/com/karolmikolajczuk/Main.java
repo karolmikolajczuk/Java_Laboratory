@@ -46,5 +46,28 @@ public class Main {
 
         System.out.println(car1);
         System.out.println(phone1);
+
+        human1.setPet(animal1);
+        human2.addMoney(4.0);
+
+        System.out.println(human1.getPet());
+        System.out.println("Transaction..");
+
+        if(human1.getPet().sell(human1, human2, new BigDecimal(1.50))) {
+            System.out.println(human1.getPet());
+            System.out.println(human2.getPet());
+        } else {
+            System.out.println("Shit happened.");
+        }
+
+        System.out.println(human1.getNumber());
+        System.out.println("Transaction..");
+        if(human1.getNumber().sell(human1, human2, new BigDecimal(1.50))) {
+            System.out.println(human1.getNumber());
+            System.out.println(human2.getNumber());
+        } else {
+            System.out.println("Shit happened.");
+        }
+
     }
 }

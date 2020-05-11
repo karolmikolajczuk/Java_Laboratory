@@ -1,5 +1,7 @@
 package com.karolmikolajczuk;
 
+import com.sun.security.jgss.GSSUtil;
+
 import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -7,7 +9,7 @@ import java.math.RoundingMode;
 /**
  * Animal class, that represents an animal.
  */
-public class Animal {
+public class Animal implements Sellable {
 
     private SPECIES species;
     private String name;
@@ -241,5 +243,26 @@ public class Animal {
     @Override
     public String toString() {
         return this.name + " weighs: " + this.weight + " and is " + this.species;
+    }
+
+    @Override
+    public boolean sell(Human seller, Human buyer, BigDecimal price) {
+        if (seller.getPet() == null)  {
+            System.out.println("He doesn't have a pet. It's scam.");
+            return false;
+        }
+        if (buyer.getMoney() < price.doubleValue()) {
+            System.out.println("He doesn't have money. It's a cheater.");
+            return false;
+        }
+
+        buyer.addMoney(price.doubleValue() * -1);
+        seller.addMoney(price.doubleValue());
+
+        buyer.setPet(seller.getPet());
+        seller.setPet(null);
+        System.out.println("Transaction between " + seller + " and " + buyer + " is done successfully.");
+
+        return true;
     }
 }

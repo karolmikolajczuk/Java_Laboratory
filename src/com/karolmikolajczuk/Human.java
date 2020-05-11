@@ -11,6 +11,7 @@ public class Human {
     private Animal pet;
     private Car car;
     private Double salary;
+    private Double cash;
 
     /**
      * Default constructor.
@@ -23,6 +24,7 @@ public class Human {
         this.pet = new Animal();
         this.car = new Car();
         this.salary = 0.0;
+        this.cash = 0.0;
     }
 
     /**
@@ -40,6 +42,7 @@ public class Human {
         this.pet = new Animal();
         this.car = new Car();
         this.salary = 0.0;
+        this.cash = 0.0;
     }
 
     /**
@@ -58,6 +61,7 @@ public class Human {
         this.pet = pet;
         this.car = new Car();
         this.salary = 0.0;
+        this.cash = 0.0;
     }
 
     /**
@@ -77,6 +81,7 @@ public class Human {
         this.pet = pet;
         this.car = car;
         this.salary = 0.0;
+        this.cash = 0.0;
     }
 
     /**
@@ -248,4 +253,22 @@ public class Human {
                 this.age + " old and has a pet: " + this.pet +
                 " and his phone number is: " + this.number;
     }
+
+    /**
+     * Setter for money, but we are increasing current state.
+     * @param money the amount of money which we are increasing by
+     */
+    public void addMoney(Double money) {
+        this.cash += money;
+    }
+
+    /**
+     * Getter of money
+     * @return current state of money of human
+     */
+    public Double getMoney() {
+        return this.cash;
+    }
+
+
 }

@@ -1,6 +1,11 @@
 package devices;
 
-public class Phone extends Device {
+import com.karolmikolajczuk.Human;
+import com.karolmikolajczuk.Sellable;
+
+import java.math.BigDecimal;
+
+public class Phone extends Device implements Sellable {
 
     private Integer dialling_code;
     private Integer number;
@@ -69,5 +74,26 @@ public class Phone extends Device {
     @Override
     public void turnOff() {
         super.mode = false;
+    }
+
+    @Override
+    public boolean sell(Human seller, Human buyer, BigDecimal price) {
+        if (seller.getNumber() == null)  {
+            System.out.println("He doesn't have a phone. It's scam.");
+            return false;
+        }
+        if (buyer.getMoney() < price.doubleValue()) {
+            System.out.println("He doesn't have money. It's a cheater.");
+            return false;
+        }
+
+        buyer.addMoney(price.doubleValue() * -1);
+        seller.addMoney(price.doubleValue());
+
+        buyer.setNumber(seller.getNumber());
+        seller.setNumber(null);
+        System.out.println("Transaction between " + seller + " and " + buyer + " is done successfully.");
+
+        return true;
     }
 }
