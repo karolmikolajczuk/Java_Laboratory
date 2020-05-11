@@ -4,17 +4,15 @@ import com.karolmikolajczuk.ENGINE;
 
 import java.math.BigDecimal;
 
-public class Car {
+public class Car extends Device {
 
     private String model;
-    private String producer;
     private Double engine_size;
     private ENGINE engine;
     private BigDecimal value;
 
     public Car() {
         this.model = "";
-        this.producer = "";
         this.engine_size = 0.0;
         this.engine = ENGINE.NONE;
         this.value = new BigDecimal("0.0");
@@ -29,8 +27,8 @@ public class Car {
      * @param value Car's value
      */
     public Car(String model, String producer, Double engine_size, ENGINE engine, BigDecimal value) {
+        super(producer, 2000, false);
         this.model = model;
-        this.producer = producer;
         this.engine_size = engine_size;
         this.engine = engine;
         this.value = value;
@@ -57,7 +55,7 @@ public class Car {
      * @return producer name
      */
     public String getProducer() {
-        return producer;
+        return super.producer;
     }
 
     /**
@@ -65,7 +63,7 @@ public class Car {
      * @param producer producer name
      */
     public void setProducer(String producer) {
-        this.producer = producer;
+        super.producer = producer;
     }
 
     /**
@@ -124,15 +122,25 @@ public class Car {
                 this.engine == car.engine &&
                 this.engine_size.equals(car.engine_size) &&
                 this.model.equals(car.model) &&
-                this.producer.equals(car.producer);
+                super.producer.equals(car.producer);
     }
 
     @Override
     public String toString() {
-        return this.producer + " " +
+        return super.producer + " " +
                 this.model + " with " +
                 this.engine_size + " " +
                 this.engine + " for " +
                 this.value.doubleValue() + " EUR.";
+    }
+
+    @Override
+    public void turnOn() {
+        super.mode = true;
+    }
+
+    @Override
+    public void turnOff() {
+        super.mode = false;
     }
 }

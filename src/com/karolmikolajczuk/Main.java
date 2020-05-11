@@ -37,5 +37,14 @@ public class Main {
         System.out.println(animal1.equals(animal2));
         System.out.println(animal1);
         System.out.println(animal2);
+
+        System.out.println(car1.currentMode());
+        car1.turnOn();
+        System.out.println(car1.currentMode());
+        car1.turnOff();
+        System.out.println(car1.currentMode());
+
+        System.out.println(car1);
+        System.out.println(phone1);
     }
 }

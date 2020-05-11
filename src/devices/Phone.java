@@ -1,6 +1,6 @@
 package devices;
 
-public class Phone {
+public class Phone extends Device {
 
     private Integer dialling_code;
     private Integer number;
@@ -59,5 +59,15 @@ public class Phone {
     @Override
     public String toString() {
         return this.number.toString();
+    }
+
+    @Override
+    public void turnOn() {
+        super.mode = true;
+    }
+
+    @Override
+    public void turnOff() {
+        super.mode = false;
     }
 }
