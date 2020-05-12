@@ -4,12 +4,18 @@ import com.karolmikolajczuk.Human;
 import com.karolmikolajczuk.Sellable;
 
 import java.math.BigDecimal;
+import java.net.URL;
+import java.util.List;
 
 public class Phone extends Device implements Sellable {
 
     private Integer dialling_code;
     private Integer number;
     private String net;
+
+    private static final String SERVER_ADDRESS = "127.0.0.1";
+    private static final String PROTOCOL = "TCPiP";
+    private static final String VERSION = "IPv4";
 
     public Phone() {
         this.dialling_code = 0;
@@ -96,4 +102,30 @@ public class Phone extends Device implements Sellable {
 
         return true;
     }
+
+    public void installAnApp(String app_name) {
+        System.out.println("Installing an app: " + app_name);
+    }
+
+    public void installAnApp(String app_name, Double version) {
+        System.out.println("Installing " + version.doubleValue() +
+                " version of an app: " + app_name);
+    }
+
+    public void installAnApp(String app_name, Double version, String address) {
+        System.out.println("Installing " + version.doubleValue() +
+                " version of an app: " + app_name + " from " +
+                address);
+    }
+
+    public void installAnApp(List<String> app_name) {
+        for (int index = 0; index < app_name.size(); ++index) {
+            System.out.println("Installing an app: " + app_name);
+        }
+    }
+
+    public void installAnApp(URL app_name) {
+        System.out.println("Installing an app: " + app_name);
+    }
+
 }

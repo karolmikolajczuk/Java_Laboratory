@@ -6,7 +6,7 @@ import com.karolmikolajczuk.Sellable;
 
 import java.math.BigDecimal;
 
-public class Car extends Device implements Sellable {
+public abstract class Car extends Device implements Sellable {
 
     private String model;
     private Double engine_size;
@@ -166,4 +166,6 @@ public class Car extends Device implements Sellable {
 
         return true;
     }
+
+    public abstract void refuel();
 }

@@ -1,5 +1,6 @@
 package com.karolmikolajczuk;
 
+import devices.Benzin;
 import devices.Car;
 import devices.Phone;
 
@@ -10,19 +11,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Car car1 = new Car("911", "Porsche", 4.0, ENGINE.BENZIN, new BigDecimal("10000.00"));
-        Car car2 = new Car("911", "Porsche", 4.0, ENGINE.BENZIN, new BigDecimal("10000.00"));
-
-        System.out.println(car1.equals(car2));
+        Car car1 = new Benzin("911", "Porsche", 4.0, ENGINE.BENZIN, new BigDecimal("10000.00"));
         System.out.println(car1);
-        System.out.println(car2);
 
         Phone phone1 = new Phone(12345678, "PLAY", 48);
-        Phone phone2 = new Phone(12345678, "PLAY", 48);
-
-        System.out.println(phone1.equals(phone2));
         System.out.println(phone1);
-        System.out.println(phone2);
 
         Human human1 = new Human("John", "Doe", 30.0, phone1);
         Human human2 = new Human("John", "Doe", 30.0, phone1);
