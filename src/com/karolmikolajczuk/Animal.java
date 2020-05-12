@@ -9,13 +9,13 @@ import java.math.RoundingMode;
 /**
  * Animal class, that represents an animal.
  */
-public class Animal implements Sellable {
+public abstract class Animal implements Sellable, Feedable {
 
-    private SPECIES species;
-    private String name;
-    private boolean isAlive;
-    private BigDecimal weight;
-    private File picture;
+    protected SPECIES species;
+    protected String name;
+    protected boolean isAlive;
+    protected BigDecimal weight;
+    protected File picture;
 
     public Animal() {
         this.species = SPECIES.NONE;
@@ -150,6 +150,7 @@ public class Animal implements Sellable {
     /**
      * Procedural method for feeding an animal.
      */
+    @Override
     public void feed() throws IllegalStateException {
         if (!this.isAlive())
             throw new IllegalStateException("Animal is already dead, buy a new one.");
@@ -159,21 +160,16 @@ public class Animal implements Sellable {
     }
 
     /**
-     * Procedural method for going on a walk with animal.
-     * @param distance how long the walk was.
+     * Procedural method for feeding an animal.
+     * @param food_weight the weight of food animal will eat
      */
-    public void walk(Double distance) {
-        while (distance > 0) {
-            System.out.println("Distance to make: " + distance);
-            --distance;
+    @Override
+    public void feed(Double food_weight) throws IllegalStateException {
+        if (!this.isAlive())
+            throw new IllegalStateException("Animal is already dead, buy a new one.");
 
-            this.weight = this.weight.subtract(new BigDecimal(1));
-            this.weight = this.weight.setScale(2, RoundingMode.HALF_UP);
-
-            //if (this.isHungry()) while(this.isHungry()) this.feed();
-            if (!this.currentState()) return;
-        }
-        System.out.println("Weight is losing, now: " + this.weight);
+        this.weight = this.weight.add(new BigDecimal(food_weight));
+        System.out.println("Weight is gaining, now: " + this.weight);
     }
 
     /**
@@ -224,6 +220,10 @@ public class Animal implements Sellable {
                 return BigDecimal.valueOf(0.7);
             case PARROT:
                 return new BigDecimal(2);
+            case COW:
+                return new BigDecimal(100);
+            case SHEEP:
+                return new BigDecimal(20);
         }
 
         throw new IllegalArgumentException("Wrong argument, somehow..");

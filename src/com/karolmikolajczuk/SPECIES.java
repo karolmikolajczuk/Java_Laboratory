@@ -8,5 +8,7 @@ public enum SPECIES {
     RAT,
     MOUSE,
     FISH,
-    PARROT
+    PARROT,
+    COW,
+    SHEEP
 }

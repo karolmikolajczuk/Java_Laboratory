@@ -21,7 +21,7 @@ public class Human {
         this.surname = "";
         this.age = 0.0;
         this.number = new Phone();
-        this.pet = new Animal();
+        this.pet = new Pet();
         this.car = new Car();
         this.salary = 0.0;
         this.cash = 0.0;
@@ -39,7 +39,7 @@ public class Human {
         this.surname = surname;
         this.age = age;
         this.number = number;
-        this.pet = new Animal();
+        this.pet = new Pet();
         this.car = new Car();
         this.salary = 0.0;
         this.cash = 0.0;
