@@ -8,8 +8,8 @@ public class Benzin extends Car {
     public Benzin() {
     }
 
-    public Benzin(String model, String producer, Double engine_size, ENGINE engine, BigDecimal value) {
-        super(model, producer, engine_size, engine, value);
+    public Benzin(String model, String producer, Double engine_size, ENGINE engine, BigDecimal value, int year) {
+        super(model, producer, engine_size, engine, value, year);
     }
 
     @Override

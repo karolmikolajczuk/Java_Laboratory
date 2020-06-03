@@ -8,8 +8,8 @@ public class LPG extends Car {
     public LPG() {
     }
 
-    public LPG(String model, String producer, Double engine_size, ENGINE engine, BigDecimal value) {
-        super(model, producer, engine_size, engine, value);
+    public LPG(String model, String producer, Double engine_size, ENGINE engine, BigDecimal value, int year) {
+        super(model, producer, engine_size, engine, value, year);
     }
 
     @Override
