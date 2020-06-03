@@ -265,4 +265,9 @@ public abstract class Animal implements Sellable, Feedable {
 
         return true;
     }
+
+    @Override
+    public boolean sell(Human seller, int index, Human buyer, BigDecimal price) {
+        return false;
+    }
 }

@@ -103,6 +103,11 @@ public class Phone extends Device implements Sellable {
         return true;
     }
 
+    @Override
+    public boolean sell(Human seller, int index, Human buyer, BigDecimal price) {
+        return false;
+    }
+
     public void installAnApp(String app_name) {
         System.out.println("Installing an app: " + app_name);
     }

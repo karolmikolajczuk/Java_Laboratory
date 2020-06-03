@@ -1,5 +1,7 @@
 package devices;
 
+import java.math.BigDecimal;
+
 public abstract class Device {
 
     public Device(String producer, Integer year_of_production, boolean mode) {
@@ -17,6 +19,7 @@ public abstract class Device {
     protected String producer;
     protected Integer year_of_production;
     protected boolean mode;
+    protected BigDecimal value;
 
     public abstract void turnOn();
     public abstract void turnOff();

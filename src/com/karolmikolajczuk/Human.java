@@ -1,15 +1,21 @@
 package com.karolmikolajczuk;
 
 import devices.Car;
+import devices.ORDER;
 import devices.Phone;
+import org.w3c.dom.ranges.RangeException;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 public class Human {
+    private int GARAGE_SIZE;
     private String name;
     private String surname;
     private Double age;
     private Phone number;
     private Animal pet;
-    private Car car;
+    private Car[] garage;
     private Double salary;
     private Double cash;
 
@@ -22,9 +28,13 @@ public class Human {
         this.age = 0.0;
         this.number = new Phone();
         this.pet = new Pet();
-        this.car = new Car();
         this.salary = 0.0;
         this.cash = 0.0;
+        this.GARAGE_SIZE = 5;
+        this.garage = new Car[GARAGE_SIZE];
+        for (int index = 0; index < GARAGE_SIZE; ++index) {
+            this.garage[index] = null;
+        }
     }
 
     /**
@@ -40,9 +50,13 @@ public class Human {
         this.age = age;
         this.number = number;
         this.pet = new Pet();
-        this.car = new Car();
         this.salary = 0.0;
         this.cash = 0.0;
+        this.GARAGE_SIZE = 5;
+        this.garage = new Car[GARAGE_SIZE];
+        for (int index = 0; index < GARAGE_SIZE; ++index) {
+            this.garage[index] = null;
+        }
     }
 
     /**
@@ -59,9 +73,13 @@ public class Human {
         this.age = age;
         this.number = number;
         this.pet = pet;
-        this.car = new Car();
         this.salary = 0.0;
         this.cash = 0.0;
+        this.GARAGE_SIZE = 5;
+        this.garage = new Car[GARAGE_SIZE];
+        for (int index = 0; index < GARAGE_SIZE; ++index) {
+            this.garage[index] = null;
+        }
     }
 
     /**
@@ -79,9 +97,94 @@ public class Human {
         this.age = age;
         this.number = number;
         this.pet = pet;
-        this.car = car;
         this.salary = 0.0;
         this.cash = 0.0;
+        this.GARAGE_SIZE = 5;
+
+        this.garage = new Car[GARAGE_SIZE];
+        for (int index = 0; index < GARAGE_SIZE; ++index) {
+            this.garage[index] = null;
+        }
+        this.garage[0] = car;
+    }
+
+    /**
+     * Constructor that contains another important parameter, the size of a garage.
+     * @param name  the name of a human
+     * @param surname   the surname of a human
+     * @param age   the age of a human
+     * @param number    the phone number of a human
+     * @param pet   the pet of a human (if exists) can be set as null tbh
+     * @param GARAGE_SIZE   the size of a garage of human
+     */
+    public Human(String name, String surname, Double age, Phone number, Animal pet, int GARAGE_SIZE) {
+        this.name = name;
+        this.surname = surname;
+        this.age = age;
+        this.number = number;
+        this.pet = pet;
+        this.cash = 0.0;
+
+        this.GARAGE_SIZE = GARAGE_SIZE;
+        this.garage = new Car[GARAGE_SIZE];
+        for (int index = 0; index < GARAGE_SIZE; ++index) {
+            this.garage[index] = null;
+        }
+    }
+
+    /**
+     * Constructor that contains another important parameter, the size of a garage.
+     * @param name  the name of a human
+     * @param surname   the surname of a human
+     * @param age   the age of a human
+     * @param number    the phone number of a human
+     * @param pet   the pet of a human (if exists) can be set as null tbh
+     * @param GARAGE_SIZE   the size of a garage of human
+     * @param car   the car of a human that has to be set in garage
+     */
+    public Human(String name, String surname, Double age, Phone number, Animal pet, int GARAGE_SIZE, Car car) {
+        this.name = name;
+        this.surname = surname;
+        this.age = age;
+        this.number = number;
+        this.pet = pet;
+        this.cash = 0.0;
+
+        this.GARAGE_SIZE = GARAGE_SIZE;
+        this.garage = new Car[GARAGE_SIZE];
+        for (int index = 0; index < GARAGE_SIZE; ++index) {
+            this.garage[index] = null;
+        }
+        this.garage[0] = car;
+    }
+
+    /**
+     * Constructor that contains another important parameter, the size of a garage.
+     * @param name  the name of a human
+     * @param surname   the surname of a human
+     * @param age   the age of a human
+     * @param number    the phone number of a human
+     * @param pet   the pet of a human (if exists) can be set as null tbh
+     * @param GARAGE_SIZE   the size of a garage of human
+     * @param car   the array of cars of a human that have to be set in garage
+     */
+    public Human(String name, String surname, Double age, Phone number, Animal pet, int GARAGE_SIZE, Car[] car) {
+        this.name = name;
+        this.surname = surname;
+        this.age = age;
+        this.number = number;
+        this.pet = pet;
+        this.cash = 0.0;
+
+        this.GARAGE_SIZE = GARAGE_SIZE;
+        this.garage = new Car[GARAGE_SIZE];
+        for (int index = 0; index < GARAGE_SIZE; ++index) {
+            this.garage[index] = null;
+        }
+
+        for (int index = 0; index < car.length; ++index) {
+            this.garage[index] = car[index];
+        }
     }
 
     /**
@@ -165,11 +268,20 @@ public class Human {
     }
 
     /**
-     * Getting current car object that human owns.
-     * @return human's car object.
+     * Getting current state o garage that human owns.
+     * @return human's cars objects.
      */
-    public Car getCar() {
-        return car;
+    public Car[] getCarsFromGarage() {
+        return this.garage;
+    }
+
+    /**
+     * Method that returns car if exist at specific garage's position
+     * @param garage_position position of garage that (probably) has a car in it
+     * @return car from specific garage's position
+     */
+    public Car getCar(int garage_position) {
+        return this.garage[garage_position];
     }
 
     /**
@@ -180,17 +292,86 @@ public class Human {
         if (this.salary.isNaN())
             throw new IllegalStateException("Dude, you have no job.");
 
+        if (this.salary < (car.getValue().doubleValue()/12))
+            throw new IllegalStateException("Go study, get new job(better payment) or go for a raise(big raise).");
+
+        // if garage is not empty (no place for car then say it)
+        if (this.garage[GARAGE_SIZE-1] != null)
+            throw new IllegalStateException("No place in garage.");
+
+        //
+        if (this.salary > (car.getValue().doubleValue()/12))
+            System.out.println("Woah, big fella. You got " + car.getModel() + ", but you have bought it on credit.");
+        else
+            System.out.println("Congratulations, you bought " + car.getModel());
+
+
+        // check which place in garage is empty, cause we don't want to
+        // overwrite a car in garage, and if empty place then set car
+        for (int index = 0; index < GARAGE_SIZE; ++index) {
+            if (this.garage[index] == null) {
+                this.garage[index] = car;
+                break;
+            }
+        }
+    }
+
+    public void setCar(Car car, int index) {
+        if (this.salary.isNaN())
+            throw new IllegalStateException("Dude, you have no job.");
+
         if (this.salary < (car.getValue().doubleValue()/12)) {
             System.out.println("Go study, get new job(better payment) or go for a raise(big raise).");
             return;
         }
+
+        // if garage is not empty (no place for car then say it)
+        if (this.garage[index] != null) {
+            System.out.println("Currently in this place You have a car.");
+            return;
+        }
+
         if (this.salary > car.getValue().doubleValue()) {
             System.out.println("Congratulations, you bought " + car.getModel());
         } else if (this.salary > (car.getValue().doubleValue()/12)) {
             System.out.println("Woah, big fella. You got " + car.getModel() + ", but you have bought it on credit.");
         }
 
-        this.car = car;
+        this.garage[index] = car;
+    }
+
+    /**
+     * This method delete's car from specific index given as parameter
+     * @param index index of car in garage
+     */
+    public void deleteCar(int index) {
+        this.garage[index] = null;
+    }
+
+    /**
+     * Methods returns the size of a garage
+     * @return size of garage
+     */
+    public int getGarageSize() {
+        return this.GARAGE_SIZE;
+    }
+
+    /**
+     * Method checks current state of garage and returns the number of cars in it.
+     * @return numbers of cars in garage
+     * @throws IllegalArgumentException
+     */
+    public int howManyCarsInGarage() throws IllegalArgumentException {
+        int count_cars = 0;
+        for (int index = 0; index < this.GARAGE_SIZE; ++index) {
+            if (this.garage[index] != null) ++count_cars;
+        }
+
+        // basically it is not possible, but let's make sure everything will be ok when returning
+        if (count_cars > this.GARAGE_SIZE)
+            throw new IllegalArgumentException("You cant have more cars than places in garage");
+
+        return count_cars;
     }
 
     /**
@@ -244,7 +425,7 @@ public class Human {
                 this.salary.doubleValue() == human.salary.doubleValue() &&
                 this.number.equals(human.number) &&
                 this.pet.equals(human.pet) &&
-                this.car.equals(human.car);
+                this.garage.equals(human.garage);
     }
 
     @Override
@@ -270,5 +451,40 @@ public class Human {
         return this.cash;
     }
 
+    /**
+     * This methods sort cars in Garage
+     * @param order The order this function will sort car's
+     */
+    public void sortCarsInGarage(ORDER order) {
+        // check if there is anything to sort
+        if (this.howManyCarsInGarage() < 2) return;
+
+        // rule #1 there is no way car's are set like this:
+        // xVxxxVx
+        // car's are always set like this:
+        // VVxxxx
+        if (ORDER.ASCENDING == order) {
+            for (int index = 0; index < this.howManyCarsInGarage(); ++index) {
+                for (int jndex = index + 1; jndex < this.howManyCarsInGarage(); ++jndex) {
+                    if (this.garage[index].getYear() > this.garage[jndex].getYear()) {
+                        Car temp = this.garage[jndex];
+                        this.garage[jndex] = this.garage[index];
+                        this.garage[index] = temp;
+                    }
+                }
+            }
+        } else {
+            for (int index = 0; index < this.howManyCarsInGarage(); ++index) {
+                for (int jndex = index + 1; jndex < this.howManyCarsInGarage(); ++jndex) {
+                    if (this.garage[index].getYear() < this.garage[jndex].getYear()) {
+                        Car temp = this.garage[jndex];
+                        this.garage[jndex] = this.garage[index];
+                        this.garage[index] = temp;
+                    }
+                }
+            }
+        }
+
+    }
 
 }
