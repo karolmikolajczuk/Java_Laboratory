@@ -69,7 +69,8 @@ public class Main {
                     }
                 }
         );
-
+        human_2.addMoney(1000.0);
+        human_2.setSalary(30000000.0);
         human_2.getCar(0).sell(human_2, 0, human_1, new BigDecimal(1));
 
         System.out.println(human_2.getGarageSize());
@@ -93,5 +94,14 @@ public class Main {
         System.out.println(human_1.getCar(0).getYear());
         System.out.println(human_1.getCar(1).getYear());
         System.out.println(human_1.getCar(2).getYear());
+
+        System.out.println(human_1.getCar(2).getCurrentOwner());
+        try {
+            System.out.println(human_1.getCar(2).checkIfHumanASoldCarToHumanB(human_2, human_1));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println(human_1.getCar(2).checkIfHumanWasPreviouslyOwner(human_2));
+
     }
 }

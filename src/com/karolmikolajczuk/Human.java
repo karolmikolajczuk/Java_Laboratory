@@ -7,8 +7,9 @@ import org.w3c.dom.ranges.RangeException;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 
-public class Human {
+public class Human implements Comparator<Human>, Comparable<Human> {
     private int GARAGE_SIZE;
     private String name;
     private String surname;
@@ -106,6 +107,7 @@ public class Human {
             this.garage[index] = null;
         }
         this.garage[0] = car;
+        car.addNewOwner(this);
     }
 
     /**
@@ -156,6 +158,7 @@ public class Human {
             this.garage[index] = null;
         }
         this.garage[0] = car;
+        car.addNewOwner(this);
     }
 
     /**
@@ -184,6 +187,7 @@ public class Human {
 
         for (int index = 0; index < car.length; ++index) {
             this.garage[index] = car[index];
+            car[index].addNewOwner(this);
         }
     }
 
@@ -311,6 +315,7 @@ public class Human {
         for (int index = 0; index < GARAGE_SIZE; ++index) {
             if (this.garage[index] == null) {
                 this.garage[index] = car;
+                car.addNewOwner(this);
                 break;
             }
         }
@@ -338,6 +343,7 @@ public class Human {
         }
 
         this.garage[index] = car;
+        car.addNewOwner(this);
     }
 
     /**
@@ -424,7 +430,6 @@ public class Human {
                 this.age.doubleValue() == human.age.doubleValue() &&
                 this.salary.doubleValue() == human.salary.doubleValue() &&
                 this.number.equals(human.number) &&
-                this.pet.equals(human.pet) &&
                 this.garage.equals(human.garage);
     }
 
@@ -487,4 +492,25 @@ public class Human {
 
     }
 
+    @Override
+    public int compare(Human o1, Human o2) {
+        if (o1 == null || o2 == null) throw new IllegalStateException("Human doesnt exist.");
+
+        if (o1.age.equals(o2.age) && o1.name.equals(o2.name) &&
+               o1.surname.equals(o2.surname) && o1.number.equals(o2.number) &&
+               o1.garage.equals(o2.garage)) return 0;
+
+        return 1;
+    }
+
+    @Override
+    public int compareTo(Human o2) {
+        if (o2 == null) throw new IllegalStateException("Human doesnt exist.");
+
+        if (this.age.equals(o2.age) && this.name.equals(o2.name) &&
+                this.surname.equals(o2.surname) && this.number.equals(o2.number) &&
+                this.garage.equals(o2.garage)) return 0;
+
+        return 1;
+    }
 }

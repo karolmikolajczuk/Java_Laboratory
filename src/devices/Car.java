@@ -5,7 +5,10 @@ import com.karolmikolajczuk.Human;
 import com.karolmikolajczuk.Sellable;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
 
 public abstract class Car extends Device implements Sellable, Comparable<Car>, Comparator<Car> {
 
@@ -14,12 +17,18 @@ public abstract class Car extends Device implements Sellable, Comparable<Car>, C
     private ENGINE engine;
     public BigDecimal fuel_state; // 0 - 100
 
+    private List<Human> owners;
+    private List<Transaction> transactions;
+
     public Car() {
         this.model = "";
         this.engine_size = 0.0;
         this.engine = ENGINE.NONE;
         this.value = new BigDecimal("0.0");
         this.fuel_state = new BigDecimal(1.0);
+
+        this.owners = new ArrayList<>();
+        this.transactions = new ArrayList<>();
     }
 
     /**
@@ -38,6 +47,9 @@ public abstract class Car extends Device implements Sellable, Comparable<Car>, C
         this.value = value;
         this.fuel_state = new BigDecimal(1.0);
         this.year_of_production = year;
+
+        this.owners = new ArrayList<>();
+        this.transactions = new ArrayList<>();
     }
 
     /**
@@ -157,6 +169,11 @@ public abstract class Car extends Device implements Sellable, Comparable<Car>, C
             throw new IllegalStateException("He doesn't have a car. It's scam.");
         }
 
+        // check if declared seller is real seller (owner) of this car
+        if (this.getCurrentOwner() != seller) {
+            throw new IllegalStateException("He is not current owner of a car.");
+        }
+
         // check if buyer has money for car
         if (buyer.getMoney() < price.doubleValue()) {
             throw new IllegalArgumentException("He doesn't have money. It's a cheater.");
@@ -177,6 +194,12 @@ public abstract class Car extends Device implements Sellable, Comparable<Car>, C
 
         // distract money from buyer
         buyer.addMoney(price.doubleValue() * -1);
+
+        // add new owner of a car to history of a car
+        this.owners.add(buyer);
+
+        // add transaction to transactions history
+        this.transactions.add(new Transaction(seller, buyer, price, new Date()));
 
         // success
         System.out.println("Transaction between " + seller + " and " + buyer + " is done successfully.");
@@ -218,5 +241,75 @@ public abstract class Car extends Device implements Sellable, Comparable<Car>, C
         return this.year_of_production;
     }
 
+    /**
+     * This method returns whole list of a owners
+     * @return list of owners
+     */
+    public List<Human> getOwners() {
+        return owners;
+    }
+
+    /**
+     * This method set's a new list of car's owners.
+     * @param owners the new history of owners.
+     */
+    public void setOwners(List<Human> owners) {
+        this.owners = owners;
+    }
+
+    /**
+     * This method returns the current owner
+     * @return current owner (Human)
+     */
+    public Human getCurrentOwner() {
+        return this.owners.get(this.owners.size()-1);
+    }
+
+    /**
+     * Adding new owner to a cars owners history
+     * @param new_owner new owner of a car
+     */
+    public void addNewOwner(Human new_owner) {
+        // is instance of if (new_owner)
+        this.owners.add(new_owner);
+    }
+
+    /**
+     * This method gives possibility to check if some human was previously
+     *  an owner of this car.
+     * @param previous_owner some human to check
+     * @return true if he was previously an owner, false if not.
+     */
+    public boolean checkIfHumanWasPreviouslyOwner(Human previous_owner) {
+        return this.owners.contains(previous_owner);
+    }
+
+    /**
+     * This method checks if Human a sold a Car to Human b.
+     * @param a Human a
+     * @param b Human b
+     * @return true if a sold car to b, false if not.
+     */
+    public boolean checkIfHumanASoldCarToHumanB(Human a, Human b) throws IllegalArgumentException {
+        if (this.owners.contains(a) && this.owners.contains(b))
+            return this.owners.indexOf(b) - this.owners.indexOf(a) == 1;
+
+        throw new IllegalArgumentException("Some human was not an owner.");
+    }
+
+    /**
+     * This method return number of transactions that he was included.
+     * Simply, its just a number of owners, cause even first owner had to buy it
+     * from carshop, so there was a 1 transaction. If it has 2 owners, then it
+     * had 2 transactions made, cause from carshop to owner#1 and transaction
+     * between owner#1 and owner#2.
+     * @return number of transactions
+     */
+    public int getHowManyTransactionsWereMadeOnThisCar() {
+        return this.transactions.size();
+    }
+    /**
+     *
+     */
     public abstract void refuel();
 }
