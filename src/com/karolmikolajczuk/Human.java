@@ -1,5 +1,6 @@
 package com.karolmikolajczuk;
 
+import devices.Application;
 import devices.Car;
 import devices.ORDER;
 import devices.Phone;
@@ -489,7 +490,15 @@ public class Human implements Comparator<Human>, Comparable<Human> {
                 }
             }
         }
+    }
 
+    public void installApp(Application app) {
+        if (this.cash < app.getAmount()) {
+            System.out.println("You dont have money for this app.");
+            return;
+        }
+        this.cash -= app.getAmount();
+        this.number.installAnApp(app);
     }
 
     @Override
